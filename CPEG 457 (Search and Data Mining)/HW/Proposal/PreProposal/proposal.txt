@@ -1,0 +1,30 @@
+What's the problem?
+	The social media website/forum known as Reddit includes many forums for buying/selling/trading various products such as computer hardware and software.  I often browse these forums while looking for deals, but encounter two main issues.
+		
+		1) Reddit includes a built in search feature allowing a person to search posts within a subreddit (a sub forum on reddit) using a search token(s).  The issue is that Reddit's built-in search feature is not reliable and often will exclude posts.  Because of this, it more reliable to Google the name of the subreddit and your search token, as opposed to using Reddit's built-in feature.
+		
+		2) There is limited quantity of these goods people are trading on Reddit, thus it is very important to detect new posts as quickly as possible, before othere users do.  Since the posting of deals cannot be predicted, one must constantly check a subreddit to see if any new posts were posted.
+
+Why is the problem important?
+	Having the ability to check for deals automatically can save the user both time and money.
+		It can save the user time because they don't have to check these forums reguarely, the user can let the scraper do this.
+		It can save money because earlier detection of deals will lead to the user purchasing items at a lower price than without the scraper.
+
+Who are the target users?
+	The target users are people who make online purchases.
+
+Brief overview of project:
+
+*Use PRAW(reddit API) to retrieve subreddit posts
+
+*Parse through the post titles looking for the search token
+
+*If a search token match is found in the title, search through the body of the post to find more information (Price, location, date created, has the item been bought/sold already?, etc)
+
+*If the text in the post body matches our criteria, save the post information.
+
+*Use Twilio (SMS Texting API for Python) to send a message to the user that a new deal was found
+
+*Repeat the cycle, each cycle a new batch of posts will be pulled from Reddit, duplicate posts will be ignored so a text message isnt sent twice for the same post after each cycle
+
+*Deploy on a RasPi 3B+, the end goal is to have this running throughout the day letting me know when a match was found.

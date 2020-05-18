@@ -1,0 +1,9 @@
+Claim ID: M6QAgynNf8iviJSv
+Claim Passcode: DZ0E7FSbvB6gffL8
+
+
+go to https://pandora.nss.udel.edu
+click on pickup
+enter claim id and passcode 
+click on the filename and download it
+extract it and put it on ur hard drive

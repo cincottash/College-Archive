@@ -1,0 +1,133 @@
+interactive tutorials:
+
+https://learngitbranching.js.org 
+
+https://try.github.io/levels/1/challenges/1
+
+https://www.atlassian.com/git/tutorials/learn-branching-with-bitbucket-cloud
+
+bash-3.2$ git init
+Initialized empty Git repository in /Users/terry/Documents/Udel/teaching/275/275-Spring2018/gitPlay/.git/
+bash-3.2$ git add *.txt
+bash-3.2$ git commit -m "all"
+[master (root-commit) f7a22b3] all
+ 4 files changed, 27 insertions(+)
+ create mode 100644 dog.txt
+ create mode 100644 gitquiz.txt
+ create mode 100644 spam.txt
+ create mode 100644 spam2.txt
+$ <edit spam.txt>
+bash-3.2$ git add spam.txt 
+bash-3.2$ git commit -m "mod"
+[master 8885fb1] mod
+ 1 file changed, 2 insertions(+)
+bash-3.2$ git branch feature
+bash-3.2$ git checkout feature
+Switched to branch 'feature'
+bash-3.2$ cat >> spam2.txt 
+a new feature
+bash-3.2$ git status
+On branch feature
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   spam2.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+bash-3.2$ git commit -m "new feature to spam2"
+On branch feature
+Changes not staged for commit:
+	modified:   spam2.txt
+
+no changes added to commit
+bash-3.2$ git add spam2.txt 
+bash-3.2$ git commit -m "new feature to spam2"
+[feature 3fbd9c3] new feature to spam2
+ 1 file changed, 1 insertion(+)
+bash-3.2$ git log --graph --all --simplify-by-decoration
+* commit 3fbd9c356a36619a540920f8402a03f50d64f106 (HEAD -> feature)
+| Author: Terry Harvey <tharvey@udel.edu>
+| Date:   Mon Mar 19 10:25:30 2018 -0400
+| 
+|     new feature to spam2
+| 
+* commit 8885fb16b61c8aeaf806bbbf3e8995f13f8f47e9 (master)
+| Author: Terry Harvey <tharvey@udel.edu>
+| Date:   Mon Mar 19 09:55:01 2018 -0400
+| 
+|     mod
+| 
+* commit f7a22b3a9ebbd4dbc98ac9ac355b51022c6f2216
+  Author: Terry Harvey <tharvey@udel.edu>
+  Date:   Mon Mar 19 09:54:02 2018 -0400
+  
+      all
+bash-3.2$ cat spam2.txt 
+hooray for spam
+second line
+third line.
+a feature
+a new feature
+bash-3.2$ git checkout master
+Switched to branch 'master'
+bash-3.2$ cat spam2.txt 
+hooray for spam
+second line
+third line.
+a feature
+bash-3.2$ ls
+dog.txt		gitquiz.txt	spam.txt	spam2.txt
+bash-3.2$ git rm spam2.txt
+rm 'spam2.txt'
+bash-3.2$ git commit -m "removed spam2.txt"
+[master 4ee3d92] removed spam2.txt
+ 1 file changed, 4 deletions(-)
+ delete mode 100644 spam2.txt
+bash-3.2$ git checkout feature
+Switched to branch 'feature'
+bash-3.2$ ls
+
+1. WHAT PRINTS HERE? Be sure you understand!
+
+bash-3.2$ git checkout master
+Switched to branch 'master'
+bash-3.2$ ls
+
+2. WHAT PRINTS HERE? Be sure you understand!
+
+bash-3.2$ git tree //this is my alias for the log command above - put in your .gitconfig!
+* commit 4ee3d92d15daa195bcdc89ccdc70b35d02981811 (HEAD -> master)
+| Author: Terry Harvey <tharvey@udel.edu>
+| Date:   Mon Mar 19 10:29:17 2018 -0400
+| 
+|     removed spam2.txt
+|   
+| * commit 3fbd9c356a36619a540920f8402a03f50d64f106 (feature)
+|/  Author: Terry Harvey <tharvey@udel.edu>
+|   Date:   Mon Mar 19 10:25:30 2018 -0400
+|   
+|       new feature to spam2
+| 
+* commit f7a22b3a9ebbd4dbc98ac9ac355b51022c6f2216
+  Author: Terry Harvey <tharvey@udel.edu>
+  Date:   Mon Mar 19 09:54:02 2018 -0400
+  
+      all
+
+bash-3.2$ git checkout feature
+Switched to branch 'feature'
+bash-3.2$ git branch
+* feature
+  master
+bash-3.2$
+
+3. What is HEAD?
+
+4. What is master?
+
+5. In this example, what is feature?
+
+6. How would you take changes from a branch and apply them to master?
+
+7. How would you remove a branch you no longer need?

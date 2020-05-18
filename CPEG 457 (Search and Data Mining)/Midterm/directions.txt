@@ -1,0 +1,14 @@
+ Imagine that you are asked to build a search engine for finding relevant tweets. Please describe what methods that you plan to use to (i) build indexes; (ii) rank the tweets; and (iii) evaluate the results. Please provide justifications on your choice and explain potential limitations. 
+
+Hint: think about whether the methods you learned in the class can be applied to this problem. If not, how to improve? 
+
+ 
+
+Requirements:  
+
+    Collaboration with your classmates on this exam is not permitted.  
+    This is an open-book exam. 
+    There is no page limit. 
+    It is important you answer each of the three questions, and provide justifications accordingly .   
+    There is no single correct answer to either of these questions.  You will be able to get points as long as your solution is well described and justified. 
+     You may read online resources (such as papers) to help you answer the questions, but you MUST provide appropriate citations and your submission should be written by you. 

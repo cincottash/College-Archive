@@ -1,0 +1,168 @@
+#include "t_lib.h"
+#include <signal.h>
+#include <unistd.h>
+#include <memory.h>
+//#include "ud_thread.h"
+
+
+tcb *running;
+threadQueue *ready;
+
+
+void push(threadQueue *queueHead, tcb *node){
+	node->next = NULL;
+	tcb *currentNode = queueHead->first;
+
+	if(currentNode == NULL){
+		queueHead->first = node;
+	}
+	else{
+	  if(node->thread_priority < queueHead->first->thread_priority){
+	  	node->next = queueHead->first;
+		queueHead->first = node;
+	  }//if
+	  else{
+		while(NULL != currentNode->next && currentNode->next->thread_priority < node->thread_priority){
+			currentNode = currentNode->next;
+		}//while
+		currentNode->next = node;
+
+	  }//else
+
+	}
+
+
+}
+
+
+
+tcb *pop(threadQueue *queueHead) {
+    tcb *tmp = NULL;
+    if (NULL != queueHead) {
+        tmp = queueHead->first;
+        queueHead->first = queueHead->first->next;
+        tmp->next = NULL;
+    }
+    if (NULL != tmp) {
+        tmp->next = NULL;
+    }
+    return tmp;
+}
+
+
+threadNode *pop(threadQueue *queueHead) {
+    threadNode *tmp = NULL;
+    if (NULL != queueHead) {
+        tmp = queueHead->first;
+        queueHead->first = queueHead->first->next;
+        tmp->next = NULL;
+    }
+    if (NULL != tmp) {
+        tmp->next = NULL;
+    }
+    return tmp;
+}
+
+
+void t_init()
+{
+  //printf("t_init running\n");
+  //init_alaram();
+  tcb *tmp_block;
+  tmp_block = malloc(sizeof(tcb));
+  tmp_block->thread_id = 0;
+  tmp_block->thread_priority = 1;
+  tmp_block->thread_context = (ucontext_t *) malloc(sizeof(ucontext_t));
+  tmp_block->next = NULL;
+
+  getcontext(tmp_block->thread_context);
+
+  running = tmp_block;
+
+  ready = (threadQueue *) calloc(1, sizeof(threadQueue));
+  ready->first = NULL;
+  //printf("%s\n", ready->first);
+}
+
+/*
+void init_alaram(){
+  signal(SIGALRM, sig_func);
+  ualarm(10000, 0);
+
+}
+*/
+
+void t_shutdown(){
+	printf("Shutting down\n");
+	tcb *current = ready->first;
+	while(NULL != current->next){
+		tcb *temp_block = current;
+		current = current->next;
+		free(temp_block->thread_context);
+		free(temp_block);
+	}
+
+	free(current->thread_context);
+	free(ready);
+	free(running);
+}
+
+void t_create(void (*fct)(int), int id, int pri) {
+    size_t sz = 0x10000;
+    tcb *new_thread_block = malloc(sizeof(tcb));
+    new_thread_block->thread_context = (ucontext_t *) malloc(sizeof(ucontext_t));
+
+    getcontext(new_thread_block->thread_context);
+/***
+  uc->uc_stack.ss_sp = mmap(0, sz,
+       PROT_READ | PROT_WRITE | PROT_EXEC,
+       MAP_PRIVATE | MAP_ANON, -1, 0);
+***/
+    new_thread_block->thread_context->uc_stack.ss_sp = malloc(sz);  /* new statement */
+    new_thread_block->thread_context->uc_stack.ss_size = sz;
+    new_thread_block->thread_context->uc_stack.ss_flags = 0;
+    makecontext(new_thread_block->thread_context, (void (*)(void)) fct, 1, id);
+
+    new_thread_block->thread_id = id;
+    new_thread_block->thread_priority = pri;
+    new_thread_block->thread_context = new_thread_block->thread_context;
+    new_thread_block->next = NULL;
+    //mbox_create(&new_thread_block->mailbox);
+
+    push(ready, new_thread_block);
+}
+
+int sem_init(sem_t **sp, int sem_count)
+{
+  *sp = malloc(sizeof(sem_t));
+  (*sp)->count = sem_count;
+  (*sp)->q = NULL;
+}
+
+void sem_wait(sem_t *s)
+{
+
+}
+
+void sem_signal(sem_t *s)
+{
+
+}
+
+void sem_destroy(sem_t **s)
+{
+
+}
+
+int mbox_create(mbox **mb)
+{
+  *mb = malloc(sizeof(mbox));
+}
+
+void mbox_deposit(mbox *mb, char *msg, int len)
+{
+}
+
+void mbox_withdraw(mbox *mb, char *msg, int *len)
+{
+}

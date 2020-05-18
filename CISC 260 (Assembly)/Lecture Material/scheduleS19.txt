@@ -1,0 +1,23 @@
+
+
+CISC260 Tentative Schedule (S19)
+
+#       Week    Topic
+1       Feb11	Overview and Data representation
+2       Feb18	Boolean logic, gates
+3       Feb25	Build a simple computer
+4       Mar4	ARM, ISA, Assembly Language
+5       Mar11	Assembly programming
+6       Mar18	Procedure call, stack
+7       Mar25	Assembly programming and Review1
+
+	Midterm March 28
+
+8	Apr1	Spring break (no classes)
+9       Apr8	Floating point
+10	Apr15	Assembly programming: Dynamic data structure
+11      Apr22	Assembler, Linker, Compiler 
+12      Apr29	Performance and optimization
+13	May6	I/O and more assembly programming
+14      May13	Assembly language programming and security
+15      May16	Review2
